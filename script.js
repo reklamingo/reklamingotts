@@ -24,7 +24,8 @@ speakBtn.addEventListener("click", async () => {
   const blob = await res.blob();
   const url = URL.createObjectURL(blob);
   audioPlayer.src = url;
-  audioPlayer.style.display = "block";
+  document.querySelector('.player-wrapper').style.display = "flex";
+  document.querySelector('.player-wrapper').style.justifyContent = "center";
   audioPlayer.play();
   downloadBtn.dataset.url = url;
 });
