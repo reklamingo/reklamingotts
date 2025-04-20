@@ -1,39 +1,37 @@
+
 const textInput = document.getElementById("text-input");
-const speakButton = document.getElementById("speak-button");
-const downloadButton = document.getElementById("download-button");
-const voiceSelect = document.getElementById("voice-select");
-const audioPlayer = document.getElementById("audio-player");
 const charCount = document.getElementById("char-count");
+const speakBtn = document.getElementById("speak-button");
+const downloadBtn = document.getElementById("download-button");
+const audioPlayer = document.getElementById("audio-player");
 
 textInput.addEventListener("input", () => {
-  charCount.textContent = textInput.value.length;
+  charCount.innerText = textInput.value.length + " / 500 karakter";
 });
 
-speakButton.addEventListener("click", async () => {
+speakBtn.addEventListener("click", async () => {
   const text = textInput.value;
-  const voice = voiceSelect.value;
+  const voice = document.getElementById("voice-select").value;
   if (!text) return;
+  speakBtn.classList.remove("glow");
 
-  speakButton.classList.remove("glow");
-
-  const response = await fetch("/speak", {
+  const res = await fetch("/speak", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ text, voice })
+    body: JSON.stringify({ text, voice }),
   });
 
-  const blob = await response.blob();
+  const blob = await res.blob();
   const url = URL.createObjectURL(blob);
   audioPlayer.src = url;
-  audioPlayer.style.display = "inline-block";
+  audioPlayer.style.display = "block";
   audioPlayer.play();
-  downloadButton.dataset.url = url;
+  downloadBtn.dataset.url = url;
 });
 
-downloadButton.addEventListener("click", () => {
-  const url = downloadButton.dataset.url;
-  if (!url) return;
-  const filename = prompt("Dosya ismi girin:", "ringo-ses.mp3") || "ringo-ses.mp3";
+downloadBtn.addEventListener("click", () => {
+  const url = downloadBtn.dataset.url;
+  const filename = prompt("Dosya ismi:", "ringo-ses.mp3") || "ringo.mp3";
   const a = document.createElement("a");
   a.href = url;
   a.download = filename;
