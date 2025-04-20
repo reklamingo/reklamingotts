@@ -78,4 +78,8 @@ footer {
   audio {
   display: block;
   margin: 20px auto;
+    .player-wrapper {
+  margin-top: 20px;
+  justify-content: center;
+  display: flex;
 }
