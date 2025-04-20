@@ -6,10 +6,9 @@ const downloadBtn = document.getElementById("download-button");
 const audioPlayer = document.getElementById("audio-player");
 
 textInput.addEventListener("input", () => {
-  const maxChars = 250;
-
-textInput.addEventListener("input", () => {
-  charCount.innerText = textInput.value.length + " / " + maxChars + " karakter";
+  const maxLength = 250;
+  const currentLength = textInput.value.length;
+  charCount.innerText = currentLength + " / " + maxLength + " karakter";
 });
 
 speakBtn.addEventListener("click", async () => {
@@ -27,15 +26,15 @@ speakBtn.addEventListener("click", async () => {
   const blob = await res.blob();
   const url = URL.createObjectURL(blob);
   audioPlayer.src = url;
-  document.querySelector('.player-wrapper').style.display = "flex";
-  document.querySelector('.player-wrapper').style.justifyContent = "center";
+  document.querySelector(".player-wrapper").style.display = "flex";
+  document.querySelector(".player-wrapper").style.justifyContent = "center";
   audioPlayer.play();
   downloadBtn.dataset.url = url;
 });
 
 downloadBtn.addEventListener("click", () => {
   const url = downloadBtn.dataset.url;
-  const filename = prompt("Dosya ismi:", "ringo-ses.mp3") || "ringo.mp3";
+  const filename = prompt("Dosya ismi", "ringo-ses.mp3") || "ringo.mp3";
   const a = document.createElement("a");
   a.href = url;
   a.download = filename;
