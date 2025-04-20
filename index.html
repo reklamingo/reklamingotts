@@ -5,19 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Ringo - Metni Seslendir</title>
   <link rel="stylesheet" href="styles.css" />
-  <link rel="icon" href="logo.svg" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
 </head>
 <body>
   <div class="container">
     <img src="logo.svg" alt="Ringo Logo" class="logo"/>
-    <h1>Ringo</h1>
     <p class="subtitle">Yapay Zeka Destekli Metin Seslendirme Asistanı</p>
-    <textarea id="textInput" placeholder="Metninizi buraya yazın..."></textarea>
+    <textarea id="text-input" placeholder="Metni buraya yazın veya yapıştırın..."></textarea>
+    <div id="char-count">0 karakter</div>
     <div class="buttons">
       <button onclick="speakText()">Metni Seslendir</button>
       <button onclick="downloadAudio()">Ses Dosyasını İndir</button>
     </div>
-    <div id="loading" class="loader hidden"></div>
+    <audio id="audio-player" controls style="display: none;"></audio>
+    <div class="footer-area">
+      <button onclick="window.location.href='//reklamingo.com.tr'" class="go-reklamingo">Reklamingo’ya Geç</button>
+      <p class="footer-text">Bu hizmet reklamingo! tarafından sağlanmaktadır.</p>
+    </div>
   </div>
   <script src="script.js"></script>
 </body>

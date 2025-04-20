@@ -1,17 +1,37 @@
+
 function speakText() {
-  const text = document.getElementById("textInput").value;
-  const loader = document.getElementById("loading");
-  loader.classList.remove("hidden");
-
-  const utterance = new SpeechSynthesisUtterance(text);
-  utterance.lang = "tr-TR";
-  speechSynthesis.speak(utterance);
-
-  utterance.onend = () => {
-    loader.classList.add("hidden");
-  };
+  const text = document.getElementById('text-input').value;
+  if (!text) return alert("Lütfen bir metin girin.");
+  fetch('/speak', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({ text })
+  })
+  .then(res => res.blob())
+  .then(blob => {
+    const audioURL = URL.createObjectURL(blob);
+    const player = document.getElementById('audio-player');
+    player.src = audioURL;
+    player.style.display = 'block';
+    player.play();
+  });
 }
-
 function downloadAudio() {
-  alert("Demo sürümde ses indirilemez.");
+  const text = document.getElementById('text-input').value;
+  if (!text) return alert("Lütfen bir metin girin.");
+  fetch('/speak', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({ text })
+  })
+  .then(res => res.blob())
+  .then(blob => {
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'ringo.mp3';
+    link.click();
+  });
 }
+document.getElementById('text-input').addEventListener('input', function () {
+  document.getElementById('char-count').textContent = this.value.length + " karakter";
+});
