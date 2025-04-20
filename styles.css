@@ -1,4 +1,10 @@
 
+@keyframes glow {
+  0% { box-shadow: 0 0 5px #3ecf00; }
+  50% { box-shadow: 0 0 20px #3ecf00; }
+  100% { box-shadow: 0 0 5px #3ecf00; }
+}
+
 body {
   background-color: #003e92;
   font-family: 'Quicksand', sans-serif;
@@ -12,11 +18,11 @@ body {
   margin: 50px auto;
 }
 .logo {
-  height: 150px;
+  height: 80px;
   margin-bottom: 10px;
 }
 .subtitle {
-  font-size: 18px;
+  font-size: 20px;
   margin-bottom: 20px;
 }
 textarea {
@@ -47,8 +53,11 @@ select {
   font-size: 14px;
   cursor: pointer;
 }
+#speakBtn.glow {
+  animation: glow 1.5s infinite;
+}
 footer {
-  margin-top: 60px;
+  margin-top: 40px;
   font-size: 14px;
 }
 .footer-button {

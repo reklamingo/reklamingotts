@@ -11,23 +11,23 @@
 <body>
   <div class="container">
     <img src="logo.svg" alt="Ringo Logo" class="logo"/>
-    <p class="subtitle">Yapay Zeka Destekli Metin Seslendirme Asistanı</p>
+    <p class="subtitle">Metin Seslendirme Asistanı</p>
     <textarea id="textInput" placeholder="Metni buraya yazın..."></textarea>
     <select id="voiceSelect">
       <option value="tr-TR-Wavenet-A">Türkçe Kadın</option>
       <option value="tr-TR-Wavenet-B">Türkçe Erkek</option>
-      <option value="en-US-Wavenet-C">English Male</option>
-      <option value="en-US-Wavenet-D">English Female</option>
+      <option value="en-US-Wavenet-D">İngilizce Kadın</option>
+      <option value="en-US-Wavenet-C">İngilizce Erkek</option>
     </select>
     <div id="charCount">0 karakter</div>
     <div class="buttons">
-      <button onclick="speakText()">Metni Seslendir</button>
+      <button id="speakBtn" onclick="speakText()">Metni Seslendir</button>
       <button onclick="downloadAudio()">Ses Dosyasını İndir</button>
     </div>
     <audio id="audioPlayer" controls style="margin-top: 20px;"></audio>
+    <a href="https://reklamingo.com.tr" target="_blank" class="footer-button">reklamingo’ya geç</a>
     <footer>
       <p>Bu hizmet reklamingo! tarafından sağlanmaktadır.</p>
-      <a href="https://reklamingo.com.tr" target="_blank" class="footer-button">reklamingo’ya geç</a>
     </footer>
   </div>
   <script src="script.js"></script>
