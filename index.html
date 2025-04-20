@@ -2,25 +2,29 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ringo</title>
-  <link rel="stylesheet" href="styles.css"/>
-  <link rel="icon" href="favicon.ico" type="image/x-icon"/>
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/png" href="favicon.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet" />
 </head>
 <body>
   <div class="container">
-    <img src="logo.svg" alt="ringo! Logo" class="logo"/>
+    <img src="logo.svg" alt="Ringo Logo" style="width: 180px;" />
     <h1>Metin Seslendirme Asistanı</h1>
-    <textarea id="textInput" maxlength="500" placeholder="Metninizi buraya yazın..."></textarea>
-    <p id="charCount">0 / 500 karakter</p>
-    <select id="voiceSelect"></select>
-    <div class="controls">
-      <button id="speakButton">Metni Seslendir</button>
-      <button id="downloadButton">Ses Dosyasını İndir</button>
-    </div>
-    <audio id="audioPlayer" controls style="display:none;"></audio>
-    <a id="goButton" href="https://reklamingo.com.tr">reklamingo’ya geç</a>
+    <textarea id="text-input" maxlength="500" placeholder="Metni buraya yazınız..."></textarea>
+    <div id="char-count">0 / 500 karakter</div>
+    <select id="voice-select">
+      <option value="tr-TR-Wavenet-A">Türkçe Kadın</option>
+      <option value="tr-TR-Wavenet-B">Türkçe Erkek</option>
+      <option value="en-US-Wavenet-F">İngilizce Kadın</option>
+      <option value="en-US-Wavenet-D">İngilizce Erkek</option>
+    </select>
+    <br/>
+    <button id="speak-button" class="glow">Metni Seslendir</button>
+    <button id="download-button">Ses Dosyasını İndir</button>
+    <audio id="audio-player" controls style="display:none;"></audio>
+    <a href="https://reklamingo.com.tr" class="go-button">reklamingo’ya geç</a>
     <footer>Bu hizmet reklamingo! tarafından sağlanmaktadır.</footer>
   </div>
   <script src="script.js"></script>
