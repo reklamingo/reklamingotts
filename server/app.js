@@ -5,6 +5,20 @@ const cors = require("cors");
 const path = require("path");
 
 const app = express();
+const express = require('express');
+const app = express();
+const path = require('path');
+
+// statik dosyaları root dizinden (index.html, styles.css, script.js vs.) sunmak için:
+app.use(express.static(path.join(__dirname, '..')));
+
+// varsa API route'ların buraya gelir
+// örnek: app.post('/api/speak', (req, res) => { ... });
+
+app.listen(10000, () => {
+  console.log("Server running on port 10000");
+});
+
 app.use(express.json());
 app.use(cors());
 
