@@ -66,4 +66,13 @@ footer {
 
 .character-count {
   margin-top: 0.5rem;
+  #audioPlayerContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+#audio-player {
+  width: 300px;
 }
