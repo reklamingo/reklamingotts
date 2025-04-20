@@ -6,7 +6,10 @@ const downloadBtn = document.getElementById("download-button");
 const audioPlayer = document.getElementById("audio-player");
 
 textInput.addEventListener("input", () => {
-  charCount.innerText = textInput.value.length + " / 500 karakter";
+  const maxChars = 250;
+
+textInput.addEventListener("input", () => {
+  charCount.innerText = textInput.value.length + " / " + maxChars + " karakter";
 });
 
 speakBtn.addEventListener("click", async () => {
