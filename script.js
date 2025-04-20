@@ -1,52 +1,41 @@
+const textInput = document.getElementById("text-input");
+const speakButton = document.getElementById("speak-button");
+const downloadButton = document.getElementById("download-button");
+const voiceSelect = document.getElementById("voice-select");
+const audioPlayer = document.getElementById("audio-player");
+const charCount = document.getElementById("char-count");
 
-const maxChars = 500;
+textInput.addEventListener("input", () => {
+  charCount.textContent = textInput.value.length;
+});
 
-async function speakText() {
-  const speakBtn = document.getElementById('speakBtn');
-  speakBtn.classList.remove('glow');
+speakButton.addEventListener("click", async () => {
+  const text = textInput.value;
+  const voice = voiceSelect.value;
+  if (!text) return;
 
-  const text = document.getElementById('textInput').value;
-  const voice = document.getElementById('voiceSelect').value;
+  speakButton.classList.remove("glow");
 
-  if (text.length > maxChars) {
-    alert("Maksimum 500 karakter girebilirsiniz.");
-    return;
-  }
-
-  const response = await fetch('/speak', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+  const response = await fetch("/speak", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ text, voice })
   });
 
-  const data = await response.json();
-
-  if (data.audioContent) {
-    const audioPlayer = document.getElementById('audioPlayer');
-    audioPlayer.src = 'data:audio/mp3;base64,' + data.audioContent;
-    audioPlayer.play();
-  } else {
-    alert("Ses oluşturulamadı.");
-  }
-}
-
-function downloadAudio() {
-  const audio = document.getElementById('audioPlayer');
-  const a = document.createElement('a');
-  a.href = audio.src;
-  a.download = 'ses.mp3';
-  a.click();
-}
-
-document.getElementById('textInput').addEventListener('input', function () {
-  const count = this.value.length;
-  const remaining = maxChars - count;
-  document.getElementById('charCount').innerText = `${count} / ${maxChars} karakter`;
-  if (count > maxChars) {
-    this.value = this.value.substring(0, maxChars);
-  }
+  const blob = await response.blob();
+  const url = URL.createObjectURL(blob);
+  audioPlayer.src = url;
+  audioPlayer.style.display = "inline-block";
+  audioPlayer.play();
+  downloadButton.dataset.url = url;
 });
 
-window.onload = () => {
-  document.getElementById('speakBtn').classList.add('glow');
-};
+downloadButton.addEventListener("click", () => {
+  const url = downloadButton.dataset.url;
+  if (!url) return;
+  const filename = prompt("Dosya ismi girin:", "ringo-ses.mp3") || "ringo-ses.mp3";
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  a.click();
+});

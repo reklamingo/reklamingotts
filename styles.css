@@ -1,71 +1,69 @@
-
-@keyframes glow {
-  0% { box-shadow: 0 0 5px #3ecf00; }
-  50% { box-shadow: 0 0 20px #3ecf00; }
-  100% { box-shadow: 0 0 5px #3ecf00; }
-}
-
 body {
-  background-color: #003e92;
   font-family: 'Quicksand', sans-serif;
+  background-color: #003e92;
   color: white;
+  text-align: center;
   margin: 0;
   padding: 0;
-  text-align: center;
 }
+
 .container {
-  max-width: 600px;
-  margin: 50px auto;
+  padding: 2rem;
 }
-.logo {
-  height: 180px;
-  margin-bottom: 10px;
-}
-.subtitle {
-  font-size: 20px;
-  margin-bottom: 20px;
-}
+
 textarea {
-  width: 100%;
+  width: 60%;
   height: 120px;
-  border-radius: 8px;
-  padding: 10px;
   font-family: 'Quicksand', sans-serif;
   font-size: 16px;
-}
-select {
-  margin-top: 10px;
-  padding: 8px;
-  font-family: 'Quicksand', sans-serif;
-}
-#charCount {
-  margin: 10px;
-  font-size: 14px;
-  color: #ccc;
-}
-.buttons button {
-  margin: 10px;
-  padding: 10px 20px;
+  padding: 10px;
+  border-radius: 8px;
   border: none;
-  border-radius: 30px;
+}
+
+select, button {
+  margin: 1rem 0.5rem;
+  padding: 0.5rem 1rem;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 16px;
+  border-radius: 20px;
+  border: none;
+}
+
+button {
   background-color: #3ecf00;
   color: white;
-  font-size: 14px;
   cursor: pointer;
 }
-#speakBtn.glow {
-  animation: glow 1.5s infinite;
+
+button.glow {
+  animation: glow 1s infinite alternate;
 }
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 5px #3ecf00;
+  }
+  to {
+    box-shadow: 0 0 20px #3ecf00;
+  }
+}
+
 footer {
-  margin-top: 40px;
-  font-size: 14px;
+  margin-top: 2rem;
+  font-size: 0.9rem;
 }
-.footer-button {
+
+.go-button {
   display: inline-block;
-  margin-top: 10px;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
   background-color: #3ecf00;
   color: white;
-  padding: 10px 20px;
-  border-radius: 30px;
+  border-radius: 20px;
   text-decoration: none;
+}
+
+.character-count {
+  margin-top: 0.5rem;
 }
