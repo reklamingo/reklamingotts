@@ -20,7 +20,13 @@ speakBtn.addEventListener("click", async () => {
     const res = await fetch("/speak", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ text, voice }),
+      body: JSON.stringify({
+  text,
+  voice: {
+    name: voice,
+    languageCode: voice.split("-").slice(0, 2).join("-")
+  }
+}),
     });
     if (!res.ok) throw new Error("Sunucu hatası");
     const blob = await res.blob();
