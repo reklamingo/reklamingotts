@@ -9,7 +9,8 @@ const cors = require("cors");
 const client = new textToSpeech.TextToSpeechClient();
 app.use(cors());
 app.use(bodyParser.json());
-app.use(express.static("client"));
+const path = require("path");
+app.use(express.static(path.join(__dirname, "..")));
 
 const ipCounts = {};
 
