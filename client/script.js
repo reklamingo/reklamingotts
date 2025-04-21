@@ -1,56 +1,42 @@
-
 const textInput = document.getElementById("text-input");
 const charCount = document.getElementById("char-count");
 const speakBtn = document.getElementById("speak-button");
 const downloadBtn = document.getElementById("download-button");
 const audioPlayer = document.getElementById("audio-player");
-const playerWrapper = document.querySelector(".player-wrapper");
+const voiceSelect = document.getElementById("voice-select");
 
 textInput.addEventListener("input", () => {
-  const textLength = textInput.value.length;
-  charCount.innerText = textLength + " / 250 karakter";
-  if (textLength > 250) {
-    textInput.value = textInput.value.substring(0, 250);
-    charCount.innerText = "250 / 250 karakter";
-  }
+  const len = textInput.value.length;
+  charCount.innerText = `${len} / 250 karakter`;
+  textInput.value = textInput.value.slice(0, 250);
 });
 
 speakBtn.addEventListener("click", async () => {
   const text = textInput.value;
-  const voiceValue = document.getElementById("voice-select").value;
-
-  if (!text || !voiceValue) {
-    alert("Lütfen hem metin hem de ses seçin.");
-    return;
-  }
-
+  const voice = voiceSelect.value;
+  if (!text || !voice) return;
   speakBtn.classList.remove("glow");
-
-  const [languageCode, name] = voiceValue.split("|");
-  const res = await fetch("/speak", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ text, voice: { languageCode, name } }),
-  });
-
-  if (!res.ok) {
-    const errorData = await res.json();
-    alert(errorData.message || "Bir hata oluştu.");
-    return;
+  try {
+    const res = await fetch("/speak", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text, voice }),
+    });
+    if (!res.ok) throw new Error("Sunucu hatası");
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    audioPlayer.src = url;
+    audioPlayer.style.display = "block";
+    audioPlayer.play();
+    downloadBtn.dataset.url = url;
+  } catch (err) {
+    alert("Hata: " + err.message);
   }
-
-  const blob = await res.blob();
-  const url = URL.createObjectURL(blob);
-  audioPlayer.src = url;
-  playerWrapper.style.display = "flex";
-  playerWrapper.style.justifyContent = "center";
-  audioPlayer.play();
-  downloadBtn.dataset.url = url;
 });
 
 downloadBtn.addEventListener("click", () => {
   const url = downloadBtn.dataset.url;
-  const filename = prompt("Dosya ismi:", "ringo-ses.mp3") || "ringo.mp3";
+  const filename = prompt("Dosya ismi:", "ringo.mp3") || "ringo.mp3";
   const a = document.createElement("a");
   a.href = url;
   a.download = filename;
