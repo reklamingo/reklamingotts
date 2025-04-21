@@ -1,24 +1,36 @@
 
 const express = require("express");
-const bodyParser = require("body-parser");
-const fs = require("fs");
-const textToSpeech = require("@google-cloud/text-to-speech");
-const util = require("util");
 const app = express();
-const client = new textToSpeech.TextToSpeechClient();
-const port = process.env.PORT || 10000;
+const PORT = process.env.PORT || 10000;
+const bodyParser = require("body-parser");
+const textToSpeech = require("@google-cloud/text-to-speech");
+const cors = require("cors");
 
+const client = new textToSpeech.TextToSpeechClient();
+app.use(cors());
 app.use(bodyParser.json());
-app.use(express.static(__dirname + "/../"));
+app.use(express.static("client"));
+
+const ipCounts = {};
 
 app.post("/speak", async (req, res) => {
+  const ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
+  ipCounts[ip] = (ipCounts[ip] || 0) + 1;
+
+  if (ipCounts[ip] > 2) {
+    return res.status(429).json({
+      error: true,
+      message: "Lütfen seslendirme hizmeti ürünümüze göz atın: https://www.reklamingo.com.tr/product-page/seslendirme-hizmeti"
+    });
+  }
+
   const { text, voice } = req.body;
 
   const request = {
     input: { text },
     voice: {
-      languageCode: voice.startsWith("tr") ? "tr-TR" : "en-US",
-      name: voice,
+      languageCode: voice.languageCode,
+      name: voice.name,
     },
     audioConfig: { audioEncoding: "MP3" },
   };
@@ -28,11 +40,11 @@ app.post("/speak", async (req, res) => {
     res.set("Content-Type", "audio/mp3");
     res.send(response.audioContent);
   } catch (error) {
-    console.error("TTS ERROR:", error);
-    res.status(500).send("Ses oluşturulamadı.");
+    console.error("TTS API HATASI:", error);
+    res.status(500).send("TTS API HATASI");
   }
 });
 
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
