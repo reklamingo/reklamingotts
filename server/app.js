@@ -18,7 +18,7 @@ app.post("/speak", async (req, res) => {
   const ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
   ipCounts[ip] = (ipCounts[ip] || 0) + 1;
 
-  if (ipCounts[ip] > 2) {
+  if (ipCounts[ip] > 100) {
     return res.status(429).json({
       error: true,
       message: "Lütfen seslendirme hizmeti ürünümüze göz atın: https://www.reklamingo.com.tr/product-page/seslendirme-hizmeti"
