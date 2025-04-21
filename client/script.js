@@ -1,3 +1,4 @@
+
 const textInput = document.getElementById("text-input");
 const charCount = document.getElementById("char-count");
 const speakBtn = document.getElementById("speak-button");
@@ -20,7 +21,7 @@ speakBtn.addEventListener("click", async () => {
     const res = await fetch("/speak", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ text, voice }),
+      body: JSON.stringify({ text, voice: { name: voice, languageCode: voice.slice(0, 5) } })
     });
     if (!res.ok) throw new Error("Sunucu hatası");
     const blob = await res.blob();
