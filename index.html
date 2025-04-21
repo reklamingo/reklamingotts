@@ -12,7 +12,7 @@
   <div class="container">
     <img src="logo.svg" alt="Ringo Logo" style="width: 180px;" />
     <h1>Metin Seslendirme Asistanı</h1>
-    <textarea id="text-input" maxlength="250" placeholder="Metni buraya yazınız..."></textarea>
+    <textarea id="text-input" maxlength="250" placeholder="Metninizi buraya yazın..."></textarea>
     <div id="char-count">0 / 250 karakter</div>
     <select id="voice-select">
       <option value="tr-TR-Wavenet-A">Türkçe Kadın</option>
@@ -23,12 +23,11 @@
     <br/>
     <button id="speak-button" class="glow">Metni Seslendir</button>
     <button id="download-button">Ses Dosyasını İndir</button>
-    <div id="audioPlayerContainer">
-  <div class="player-wrapper" style="display: none;">
-  <audio id="audio-player" controls></audio>
-</div>
+    <div class="player-wrapper">
+      <audio id="audio-player" controls style="display:none;"></audio>
+    </div>
     <a href="https://reklamingo.com.tr" class="go-button">reklamingo’ya geç</a>
-    <footer>© 2035 reklamingo!</footer>
+    <footer>Bu hizmet reklamingo! tarafından sağlanmaktadır.</footer>
   </div>
   <script src="script.js"></script>
 </body>
