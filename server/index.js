@@ -9,7 +9,7 @@ app.use(express.json());
 
 // Mock kullanıcı veritabanı (gerçek projede MongoDB kullanabilirsin)
 const users = [
-  { id: 1, email: 'test@reklamingo.com', password: '$2a$10$examplehash' } // Şifreyi bcrypt ile hash'le
+  { id: 1, email: 'test@reklamingo.com', password: '12345' } // Şifreyi bcrypt ile hash'le
 ];
 
 // Login endpoint
