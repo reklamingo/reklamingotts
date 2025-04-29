@@ -7,9 +7,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Mock kullanıcı veritabanı (gerçek projede MongoDB kullanabilirsin)
+// Mock kullanıcı veritabanı
 const users = [
-  { id: 1, email: 'test@reklamingo.com', password: '12345' } // Şifreyi bcrypt ile hash'le
+  { id: 1, email: 'test@reklamingo.com', password: '$2a$10$KX9z1uJ2vXz7y5q8w3e4r.uT6vY9xW2mZ3nQ5p8r9t0uV1wX2yA' }
 ];
 
 // Login endpoint
