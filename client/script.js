@@ -1,47 +1,17 @@
 
-async function register() {
-    const email = document.getElementById("register-email").value;
-    const password = document.getElementById("register-password").value;
+document.getElementById("text-input").addEventListener("input", () => {
+    const text = document.getElementById("text-input").value;
+    document.getElementById("char-count").innerText = text.length + " / 250 karakter";
+});
 
-    const res = await fetch("/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password })
-    });
-    
-    const data = await res.json();
-    alert(data.message);
-}
+document.getElementById("speak-button").addEventListener("click", () => {
+    const text = document.getElementById("text-input").value;
+    const voice = document.getElementById("voice-select").value;
+    alert("Seslendirilecek: " + text + "\nSes: " + voice);
+});
 
-async function login() {
-    const email = document.getElementById("login-email").value;
-    const password = document.getElementById("login-password").value;
-
-    const res = await fetch("/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password })
-    });
-
-    if (res.ok) {
-        const data = await res.json();
-        alert(`Hoş geldin, ${data.email}! Kredin: ${data.kredi}`);
-        window.location.href = "uygulama.html";
-    } else {
-        const err = await res.json();
-        alert(err.message || "Giriş başarısız.");
-    }
-}
-
-async function useCode() {
-    const code = document.getElementById("kredi-kodu").value;
-
-    const res = await fetch("/use-code", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ code })
-    });
-
-    const data = await res.json();
-    alert(data.message);
+function logout() {
+    localStorage.removeItem("email");
+    localStorage.removeItem("token");
+    window.location.href = "index.html";
 }
