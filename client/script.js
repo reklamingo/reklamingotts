@@ -1,45 +1,55 @@
+// Login Sayfası
+if (document.getElementById('loginForm')) {
+  document.getElementById('loginForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const errorEl = document.getElementById('error');
 
-const textInput = document.getElementById("text-input");
-const charCount = document.getElementById("char-count");
-const speakBtn = document.getElementById("speak-button");
-const downloadBtn = document.getElementById("download-button");
-const audioPlayer = document.getElementById("audio-player");
-const voiceSelect = document.getElementById("voice-select");
+    try {
+      const response = await fetch('https://your-backend.onrender.com/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+      const data = await response.json();
+      if (data.token) {
+        localStorage.setItem('token', data.token);
+        window.location.href = '/user.html';
+      } else {
+        errorEl.textContent = data.message || 'Giriş başarısız';
+      }
+    } catch (err) {
+      errorEl.textContent = 'Bir hata oluştu';
+    }
+  });
+}
 
-textInput.addEventListener("input", () => {
-  const len = textInput.value.length;
-  charCount.innerText = `${len} / 250 karakter`;
-  textInput.value = textInput.value.slice(0, 250);
-});
-
-speakBtn.addEventListener("click", async () => {
-  const text = textInput.value;
-  const voice = voiceSelect.value;
-  if (!text || !voice) return;
-  speakBtn.classList.remove("glow");
-  try {
-    const res = await fetch("/speak", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ text, voice: { name: voice, languageCode: voice.slice(0, 5) } })
-    });
-    if (!res.ok) throw new Error("Sunucu hatası");
-    const blob = await res.blob();
-    const url = URL.createObjectURL(blob);
-    audioPlayer.src = url;
-    audioPlayer.style.display = "block";
-    audioPlayer.play();
-    downloadBtn.dataset.url = url;
-  } catch (err) {
-    alert("Hata: " + err.message);
+// Kullanıcı Sayfası
+if (document.getElementById('userEmail')) {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    window.location.href = '/';
+    return;
   }
-});
 
-downloadBtn.addEventListener("click", () => {
-  const url = downloadBtn.dataset.url;
-  const filename = prompt("Dosya ismi:", "ringo.mp3") || "ringo.mp3";
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = filename;
-  a.click();
-});
+  fetch('https://your-backend.onrender.com/api/user', {
+    headers: { Authorization: `Bearer ${token}` },
+  })
+    .then(res => res.json())
+    .then(data => {
+      if (data.email) {
+        document.getElementById('userEmail').textContent = data.email;
+      } else {
+        window.location.href = '/';
+      }
+    })
+    .catch(() => {
+      window.location.href = '/';
+    });
+
+  document.getElementById('logoutBtn').addEventListener('click', () => {
+    localStorage.removeItem('token');
+    window.location.href = '/';
+  });
+}
