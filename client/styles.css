@@ -1,28 +1,31 @@
 
 body {
-    background-color: #003e92;
-    font-family: 'Quicksand', sans-serif;
-    color: white;
-    text-align: center;
-    padding: 2rem;
+  background-color: #003e92;
+  font-family: 'Quicksand', sans-serif;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
 }
-
-input, button {
-    width: 300px;
-    margin: 10px auto;
-    padding: 10px;
-    display: block;
-    border: none;
-    border-radius: 8px;
-    font-family: 'Quicksand', sans-serif;
+.container {
+  text-align: center;
 }
-
+input {
+  display: block;
+  margin: 10px auto;
+  padding: 10px;
+  width: 250px;
+}
 button {
-    background-color: #3ecf00;
-    color: white;
-    cursor: pointer;
+  padding: 10px 20px;
+  background-color: #3ecf00;
+  color: white;
+  border: none;
+  cursor: pointer;
 }
-
-h1, h2 {
-    margin-top: 2rem;
+.logo {
+  width: 180px;
+  margin-bottom: 20px;
 }
