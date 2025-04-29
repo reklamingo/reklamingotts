@@ -1,58 +1,35 @@
 
-const express = require("express");
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 10000;
-const bodyParser = require("body-parser");
-const textToSpeech = require("@google-cloud/text-to-speech");
-const cors = require("cors");
 
-const client = new textToSpeech.TextToSpeechClient();
+// Sahte kullanıcı verisi
+let users = [];
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use(express.static("client"));
+app.use(express.static('client'));
 
-const ipCounts = {};
+app.post('/register', (req, res) => {
+    const { email, password } = req.body;
+    if (users.find(u => u.email === email)) {
+        return res.status(400).json({ error: 'Bu e-posta zaten kayıtlı.' });
+    }
+    users.push({ email, password, credits: 250 });
+    res.json({ success: true, message: 'Kayıt başarılı. 250 karakter krediniz tanımlandı.' });
+});
 
-app.post("/speak", async (req, res) => {
-  const ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
-  ipCounts[ip] = (ipCounts[ip] || 0) + 1;
-
-  if (ipCounts[ip] > 2) {
-    return res.status(429).json({
-      error: true,
-      message: "Lütfen seslendirme hizmeti ürünümüze göz atın: https://www.reklamingo.com.tr/product-page/seslendirme-hizmeti"
-    });
-  }
-
-  const { text, voice } = req.body;
-
-  if (!voice || !voice.languageCode) {
-    return res.status(400).json({
-      error: true,
-      message: "Ses verisi eksik. Lütfen geçerli bir ses seçin."
-    });
-  }
-
-  const request = {
-    input: { text },
-    voice: {
-      languageCode: voice.languageCode,
-      name: voice.name,
-    },
-    audioConfig: { audioEncoding: "MP3" },
-  };
-
-  try {
-    const [response] = await client.synthesizeSpeech(request);
-    res.set("Content-Type", "audio/mpeg");
-    res.send(response.audioContent);
-  } catch (error) {
-    console.error("TTS API HATASI:", error);
-    res.status(500).send("Seslendirme başarısız.");
-  }
+app.post('/login', (req, res) => {
+    const { email, password } = req.body;
+    const user = users.find(u => u.email === email && u.password === password);
+    if (!user) {
+        return res.status(400).json({ error: 'Geçersiz e-posta veya şifre.' });
+    }
+    res.json({ success: true, user });
 });
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+    console.log(`Server running on port ${PORT}`);
 });
