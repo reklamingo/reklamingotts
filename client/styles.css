@@ -1,32 +1,28 @@
 
 body {
-  font-family: 'Quicksand', sans-serif;
-  background: linear-gradient(90deg, #003e92, #3ecf00);
-  color: white;
-  text-align: center;
-  margin: 0;
-  padding: 0;
+    background-color: #003e92;
+    font-family: 'Quicksand', sans-serif;
+    color: white;
+    text-align: center;
+    padding: 2rem;
 }
-.container {
-  margin-top: 3rem;
+
+input, button {
+    width: 300px;
+    margin: 10px auto;
+    padding: 10px;
+    display: block;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Quicksand', sans-serif;
 }
-input {
-  display: block;
-  width: 80%;
-  margin: 0.5rem auto;
-  padding: 0.5rem;
-  border-radius: 5px;
-  border: none;
-}
+
 button {
-  background-color: #3ecf00;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  cursor: pointer;
-  margin-bottom: 1rem;
+    background-color: #3ecf00;
+    color: white;
+    cursor: pointer;
 }
-.form-block {
-  margin: 2rem auto;
+
+h1, h2 {
+    margin-top: 2rem;
 }

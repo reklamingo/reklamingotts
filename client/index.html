@@ -1,39 +1,30 @@
-
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ringo Üyelik</title>
-  <link rel="stylesheet" href="styles.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ringo Üyelik</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet" />
 </head>
 <body>
-  <div class="container">
-    <img src="logo.svg" alt="Ringo Logo" style="width: 180px;" />
+    <img src="logo.svg" style="width: 180px; margin-bottom: 20px;" />
     <h1>Ringo Üyelik Sistemi</h1>
+    
+    <h2>Kayıt Ol</h2>
+    <input type="email" id="register-email" placeholder="E-posta" />
+    <input type="password" id="register-password" placeholder="Şifre" />
+    <button onclick="register()">Kayıt Ol</button>
 
-    <div class="form-block">
-      <h2>Kayıt Ol</h2>
-      <input type="email" id="register-email" placeholder="E-posta" />
-      <input type="password" id="register-password" placeholder="Şifre" />
-      <button onclick="register()">Kayıt Ol</button>
-    </div>
+    <h2>Giriş Yap</h2>
+    <input type="email" id="login-email" placeholder="E-posta" />
+    <input type="password" id="login-password" placeholder="Şifre" />
+    <button onclick="login()">Giriş Yap</button>
 
-    <div class="form-block">
-      <h2>Giriş Yap</h2>
-      <input type="email" id="login-email" placeholder="E-posta" />
-      <input type="password" id="login-password" placeholder="Şifre" />
-      <button onclick="login()">Giriş Yap</button>
-    </div>
+    <h2>Kod ile Kredi Yükle</h2>
+    <input type="text" id="kredi-kodu" placeholder="Yükleme Kodu" />
+    <button onclick="useCode()">Kodu Kullan</button>
 
-    <div class="form-block">
-      <h2>Kod ile Kredi Yükle</h2>
-      <input type="text" id="code-input" placeholder="Yükleme Kodu" />
-      <button onclick="applyCode()">Kodu Kullan</button>
-    </div>
-  </div>
-
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
