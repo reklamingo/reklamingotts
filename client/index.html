@@ -2,34 +2,29 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ringo</title>
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="icon" type="image/png" href="favicon.ico" />
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ringo Üyelik</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="container">
-    <img src="logo.svg" alt="Ringo Logo" style="width: 180px;" />
-    <h1>Metin Seslendirme Asistanı</h1>
-    <textarea id="text-input" maxlength="250" placeholder="Metninizi buraya yazın..."></textarea>
-    <div id="char-count">0 / 250 karakter</div>
-    <select id="voice-select">
-      <option value="tr-TR-Wavenet-A">Türkçe Kadın</option>
-      <option value="tr-TR-Wavenet-B">Türkçe Erkek</option>
-      <option value="en-US-Wavenet-F">İngilizce Kadın</option>
-      <option value="en-US-Wavenet-D">İngilizce Erkek</option>
-    </select>
-    <br/>
-    <button id="speak-button" class="glow">Metni Seslendir</button>
-    <button id="download-button">Ses Dosyasını İndir</button>
-    <div class="player-wrapper">
-      <audio id="audio-player" controls style="display:none;"></audio>
+    <div class="container">
+        <h1>Ringo Üyelik Sistemi</h1>
+        <div id="form-container">
+            <div id="register">
+                <h2>Kayıt Ol</h2>
+                <input type="email" id="register-email" placeholder="E-posta">
+                <input type="password" id="register-password" placeholder="Şifre">
+                <button onclick="register()">Kayıt Ol</button>
+            </div>
+            <div id="login">
+                <h2>Giriş Yap</h2>
+                <input type="email" id="login-email" placeholder="E-posta">
+                <input type="password" id="login-password" placeholder="Şifre">
+                <button onclick="login()">Giriş Yap</button>
+            </div>
+        </div>
     </div>
-    <a href="https://reklamingo.com.tr" class="go-button">reklamingo’ya geç</a>
-    <footer>Bu hizmet reklamingo! tarafından sağlanmaktadır.</footer>
-  </div>
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
